@@ -16,7 +16,7 @@
 
 %% @doc command tool for MQTT-SN client
 %%
-%% Caution: not need in most cases, unsless you 
+%% Caution: not need in most cases, unsless you
 %% want to test command line, do not use it.
 %%
 -module(emqttsn_cli).
@@ -115,9 +115,9 @@
 
 %% @doc Intro of a MQTT-SN client line call
 %%
-%% Caution: not need in most cases, unsless you 
+%% Caution: not need in most cases, unsless you
 %% want to test command line, do not use it.
-%% 
+%%
 %% @param Args array of arguments
 %%
 %% @returns A client object

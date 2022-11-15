@@ -506,7 +506,7 @@ handle_event(cast,
 %% @end
 %%------------------------------------------------------------------------------
 
-handle_event(state_timeout, {ResendTimes}, wait_sub, State =
+handle_event(state_timeout, {ResendTimes}, wait_unsub, State =
                   #state{next_packet_id = PacketId, config = Config, socket = Socket,
                          waiting_data = {unsub, TopicIdType, TopicIdOrName}}) ->
   #config{max_resend = MaxResend, resend_no_qos = WhetherResend,
@@ -1001,14 +1001,9 @@ handle_event(cast, Packet = ?PUBLISH_PACKET(_RemoteDup, _RemoteQos,
 %% @end
 %%------------------------------------------------------------------------------
 
-handle_event(cast, ?PINGREQ_PACKET(ClientId), connected,
+handle_event(cast, ?PINGREQ_PACKET(), connected,
              State = #state{config = Config, socket = Socket}) ->
   ?LOG_STATE(debug, "Receive ping request from gateway", [], State),
-  #config{strict_mode = StrictMode} = Config,
-  if StrictMode andalso ClientId =/= ?CLIENT_ID
-    -> ?LOG_STATE(warning, "remote pingreq has a wrong client id ~p",
-                  [ClientId], State)
-  end,
   emqttsn_send:send_pingresp(Config, Socket),
   {keep_state, State};
 

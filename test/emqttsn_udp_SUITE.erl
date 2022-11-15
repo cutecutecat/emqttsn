@@ -126,3 +126,11 @@ t_recv_timeout(_Cfg) ->
 sender(TargetPid, Msg) ->
     TargetPid ! Msg,
     ok.
+
+-spec recv_sender(pid(), term()) -> ok.
+recv_sender(TargetPid, Msg) ->
+    receive
+        _ ->
+            TargetPid ! Msg
+    end,
+    ok.
